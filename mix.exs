@@ -42,7 +42,15 @@ defmodule Heirarchy.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
-      {:as_nested_set, "~> 3.1"}
+      {:as_nested_set, "~> 3.1"},
+      {:arc, "~> 0.11.0"},
+      {:arc_ecto, "~> 0.11.0"},
+      # If using Amazon S3:
+      {:ex_aws, "~> 2.0"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.6"},
+      {:poison, "~> 3.1"},
+      {:sweet_xml, "~> 0.6"}  
     ]
   end
 

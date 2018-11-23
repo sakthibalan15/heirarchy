@@ -1,10 +1,10 @@
 defmodule Heirarchy.Nest.User do
   use Ecto.Schema
   import Ecto.Changeset
-
+  use Arc.Ecto.Schema
 
   schema "users" do
-    field :dp_image, :string
+    field :dp_image, Heirarchy.UserImage.Type
     field :name, :string
 
     timestamps()

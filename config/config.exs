@@ -22,6 +22,14 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
+config :arc,
+  storage: Arc.Storage.S3, # or Arc.Storage.Local
+  bucket: "public" # if using Amazon S3
+
+config :ex_aws, :s3,
+  host: "auroville.in", # to be changed to s3.auroville.org.in
+  http_opts: [:insecure]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
