@@ -1,0 +1,34 @@
+<h2>Listing Taxons</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Parent</th>
+      <th>Rgt</th>
+      <th>Lft</th>
+      <th>Taxonomy</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for taxon <- @taxons do %>
+    <tr>
+      <td><%= taxon.name %></td>
+      <td><%= taxon.parent_id %></td>
+      <td><%= taxon.rgt %></td>
+      <td><%= taxon.lft %></td>
+      <td><%= taxon.taxonomy_id %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: taxon_path(@conn, :show, taxon), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: taxon_path(@conn, :edit, taxon), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: taxon_path(@conn, :delete, taxon), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Taxon", to: taxon_path(@conn, :new) %></span>

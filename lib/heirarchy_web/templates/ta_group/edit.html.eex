@@ -1,0 +1,5 @@
+<h2>Edit Ta group</h2>
+
+<%= render "form.html", Map.put(assigns, :action, ta_group_path(@conn, :update, @ta_group)) %>
+
+<span><%= link "Back", to: ta_group_path(@conn, :index) %></span>

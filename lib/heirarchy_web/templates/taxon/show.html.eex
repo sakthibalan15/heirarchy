@@ -1,0 +1,33 @@
+<h2>Show Taxon</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @taxon.name %>
+  </li>
+
+  <li>
+    <strong>Parent:</strong>
+    <%= @taxon.parent_id %>
+  </li>
+
+  <li>
+    <strong>Rgt:</strong>
+    <%= @taxon.rgt %>
+  </li>
+
+  <li>
+    <strong>Lft:</strong>
+    <%= @taxon.lft %>
+  </li>
+
+  <li>
+    <strong>Taxonomy:</strong>
+    <%= @taxon.taxonomy_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: taxon_path(@conn, :edit, @taxon) %></span>
+<span><%= link "Back", to: taxon_path(@conn, :index) %></span>

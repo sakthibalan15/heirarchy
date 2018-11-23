@@ -1,0 +1,34 @@
+<h2>Listing Groups</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Parent</th>
+      <th>Rgt</th>
+      <th>Lft</th>
+      <th>Taxonomy</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for ta_group <- @groups do %>
+    <tr>
+      <td><%= ta_group.name %></td>
+      <td><%= ta_group.parent_id %></td>
+      <td><%= ta_group.rgt %></td>
+      <td><%= ta_group.lft %></td>
+      <td><%= ta_group.taxonomy_id %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: ta_group_path(@conn, :show, ta_group), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: ta_group_path(@conn, :edit, ta_group), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: ta_group_path(@conn, :delete, ta_group), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Ta group", to: ta_group_path(@conn, :new) %></span>

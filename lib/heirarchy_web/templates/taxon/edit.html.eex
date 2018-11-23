@@ -1,0 +1,5 @@
+<h2>Edit Taxon</h2>
+
+<%= render "form.html", Map.put(assigns, :action, taxon_path(@conn, :update, @taxon)) %>
+
+<span><%= link "Back", to: taxon_path(@conn, :index) %></span>

@@ -1,0 +1,33 @@
+<h2>Show Ta group</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @ta_group.name %>
+  </li>
+
+  <li>
+    <strong>Parent:</strong>
+    <%= @ta_group.parent_id %>
+  </li>
+
+  <li>
+    <strong>Rgt:</strong>
+    <%= @ta_group.rgt %>
+  </li>
+
+  <li>
+    <strong>Lft:</strong>
+    <%= @ta_group.lft %>
+  </li>
+
+  <li>
+    <strong>Taxonomy:</strong>
+    <%= @ta_group.taxonomy_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: ta_group_path(@conn, :edit, @ta_group) %></span>
+<span><%= link "Back", to: ta_group_path(@conn, :index) %></span>
