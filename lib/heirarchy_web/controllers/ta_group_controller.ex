@@ -10,8 +10,9 @@ defmodule HeirarchyWeb.TaGroupController do
   end
 
   def new(conn, _params) do
+    groups = Nest.list_groups()
     changeset = Nest.change_ta_group(%TaGroup{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, groups: groups)
   end
 
   def create(conn, %{"ta_group" => ta_group_params}) do

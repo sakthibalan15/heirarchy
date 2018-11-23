@@ -138,4 +138,66 @@ defmodule Heirarchy.NestTest do
       assert %Ecto.Changeset{} = Nest.change_ta_group(ta_group)
     end
   end
+
+  describe "users" do
+    alias Heirarchy.Nest.User
+
+    @valid_attrs %{dp_image: "some dp_image", name: "some name"}
+    @update_attrs %{dp_image: "some updated dp_image", name: "some updated name"}
+    @invalid_attrs %{dp_image: nil, name: nil}
+
+    def user_fixture(attrs \\ %{}) do
+      {:ok, user} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Nest.create_user()
+
+      user
+    end
+
+    test "list_users/0 returns all users" do
+      user = user_fixture()
+      assert Nest.list_users() == [user]
+    end
+
+    test "get_user!/1 returns the user with given id" do
+      user = user_fixture()
+      assert Nest.get_user!(user.id) == user
+    end
+
+    test "create_user/1 with valid data creates a user" do
+      assert {:ok, %User{} = user} = Nest.create_user(@valid_attrs)
+      assert user.dp_image == "some dp_image"
+      assert user.name == "some name"
+    end
+
+    test "create_user/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Nest.create_user(@invalid_attrs)
+    end
+
+    test "update_user/2 with valid data updates the user" do
+      user = user_fixture()
+      assert {:ok, user} = Nest.update_user(user, @update_attrs)
+      assert %User{} = user
+      assert user.dp_image == "some updated dp_image"
+      assert user.name == "some updated name"
+    end
+
+    test "update_user/2 with invalid data returns error changeset" do
+      user = user_fixture()
+      assert {:error, %Ecto.Changeset{}} = Nest.update_user(user, @invalid_attrs)
+      assert user == Nest.get_user!(user.id)
+    end
+
+    test "delete_user/1 deletes the user" do
+      user = user_fixture()
+      assert {:ok, %User{}} = Nest.delete_user(user)
+      assert_raise Ecto.NoResultsError, fn -> Nest.get_user!(user.id) end
+    end
+
+    test "change_user/1 returns a user changeset" do
+      user = user_fixture()
+      assert %Ecto.Changeset{} = Nest.change_user(user)
+    end
+  end
 end

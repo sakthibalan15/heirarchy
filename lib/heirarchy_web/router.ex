@@ -19,6 +19,7 @@ defmodule HeirarchyWeb.Router do
     get "/", PageController, :index
     resources "/taxons", TaxonController
     resources "/groups", TaGroupController
+    resources "/users", UserController
   end
 
   # Other scopes may use custom stacks.

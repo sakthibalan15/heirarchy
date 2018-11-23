@@ -11,13 +11,11 @@
     <%= error_tag f, :name %>
   </div>
 
-  <%= if @groups != [] do %>
-    <div class="form-group">
-      <%= label f, :parent_id, class: "control-label" %>
-      <%= select f, :parent_id, get_groups(@groups), prompt: "Select Parent Group", class: "form-control" %>
-      <%= error_tag f, :parent_id %>
-    </div>
-  <% end %>
+  <div class="form-group">
+    <%= label f, :dp_image, class: "control-label" %>
+    <%= text_input f, :dp_image, class: "form-control" %>
+    <%= error_tag f, :dp_image %>
+  </div>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

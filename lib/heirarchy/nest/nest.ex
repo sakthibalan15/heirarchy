@@ -7,6 +7,7 @@ defmodule Heirarchy.Nest do
   alias Heirarchy.Repo
 
   alias Heirarchy.Nest.Taxon
+  alias Heirarchy.Nest.TaGroup
 
   @doc """
   Returns the list of taxons.
@@ -146,9 +147,33 @@ defmodule Heirarchy.Nest do
 
   """
   def create_ta_group(attrs \\ %{}) do
-    %TaGroup{}
-    |> TaGroup.changeset(attrs)
-    |> Repo.insert()
+    if attrs["parent_id"] do
+      case attrs["parent_id"] do
+        "" -> create_parent_group(attrs["name"])
+        _ -> create_child_group(attrs["name"])
+      end
+    else
+      %TaGroup{name: attrs["name"]}
+      |> AsNestedSet.create(:root)
+      |> AsNestedSet.execute(Repo)
+    end
+
+    # if attrs["parent_id"]
+    # %TaGroup{name: attrs["name"]}
+    # |> AsNestedSet.create(:root)
+    # |> AsNestedSet.execute(Repo)
+  end
+
+  defp create_parent_group(name) do
+    %TaGroup{name: name}
+    |> AsNestedSet.create(:root)
+    |> AsNestedSet.execute(Repo)
+  end
+
+  defp create_child_group(name) do
+    %TaGroup{name: name}
+    |> AsNestedSet.create(:root)
+    |> AsNestedSet.execute(Repo)
   end
 
   @doc """
@@ -196,5 +221,101 @@ defmodule Heirarchy.Nest do
   """
   def change_ta_group(%TaGroup{} = ta_group) do
     TaGroup.changeset(ta_group, %{})
+  end
+
+  alias Heirarchy.Nest.User
+
+  @doc """
+  Returns the list of users.
+
+  ## Examples
+
+      iex> list_users()
+      [%User{}, ...]
+
+  """
+  def list_users do
+    Repo.all(User)
+  end
+
+  @doc """
+  Gets a single user.
+
+  Raises `Ecto.NoResultsError` if the User does not exist.
+
+  ## Examples
+
+      iex> get_user!(123)
+      %User{}
+
+      iex> get_user!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Creates a user.
+
+  ## Examples
+
+      iex> create_user(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_user(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_user(attrs \\ %{}) do
+    %User{}
+    |> User.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a user.
+
+  ## Examples
+
+      iex> update_user(user, %{field: new_value})
+      {:ok, %User{}}
+
+      iex> update_user(user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a User.
+
+  ## Examples
+
+      iex> delete_user(user)
+      {:ok, %User{}}
+
+      iex> delete_user(user)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> change_user(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
+  def change_user(%User{} = user) do
+    User.changeset(user, %{})
   end
 end
