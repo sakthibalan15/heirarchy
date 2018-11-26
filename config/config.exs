@@ -24,10 +24,10 @@ config :logger, :console,
 
 config :arc,
   storage: Arc.Storage.S3, # or Arc.Storage.Local
-  bucket: "public" # if using Amazon S3
+  bucket: "testdvar" # if using Amazon S3
 
 config :ex_aws, :s3,
-  host: "auroville.in", # to be changed to s3.auroville.org.in
+  host: "s3.ams03.objectstorage.softlayer.net", # to be changed to s3.auroville.org.in
   http_opts: [:insecure]
 
 # Import environment specific config. This must remain at the bottom
